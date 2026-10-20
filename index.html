@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator HPP UMKM</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo-wrapper">
+                <i class="fa-solid fa-calculator"></i>
+            </div>
+            <div>
+                <h1>Kalkulator HPP</h1>
+                <p>Hitung Harga Pokok Penjualan dengan Akurat</p>
+            </div>
+        </header>
+
+        <main>
+            <!-- Biaya Tetap Section -->
+            <section class="card section-biaya-tetap">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-lock"></i> Biaya Tetap</h2>
+                    <p class="subtitle">Biaya yang tidak berubah meski produksi naik/turun</p>
+                </div>
+                <div class="card-content">
+                    <div class="input-group">
+                        <label for="penyusutan">Biaya Penyusutan Alat (Rp)</label>
+                        <input type="number" id="penyusutan" placeholder="Contoh: 50000" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="sewa">Biaya Sewa / Pajak Lokasi (Rp)</label>
+                        <input type="number" id="sewa" placeholder="Contoh: 150000" min="0">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Biaya Variabel Section -->
+            <section class="card section-biaya-variabel">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-chart-line"></i> Biaya Variabel</h2>
+                    <p class="subtitle">Biaya yang bergantung pada jumlah produksi (Bahan, Tenaga Kerja, dll)</p>
+                </div>
+                <div class="card-content" id="variabel-container">
+                    <!-- Default first row -->
+                    <div class="variabel-row">
+                        <div class="input-group flex-2">
+                            <label>Nama Biaya</label>
+                            <input type="text" class="var-nama" placeholder="Contoh: Tepung Terigu">
+                        </div>
+                        <div class="input-group flex-2">
+                            <label>Total Biaya (Rp)</label>
+                            <input type="number" class="var-nominal" placeholder="Contoh: 100000" min="0">
+                        </div>
+                        <div class="input-action">
+                            <label>&nbsp;</label>
+                            <button type="button" class="btn-icon btn-delete" onclick="hapusBaris(this)" disabled>
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-secondary" onclick="tambahBaris()">
+                        <i class="fa-solid fa-plus"></i> Tambah Item Biaya
+                    </button>
+                </div>
+            </section>
+
+            <!-- Produksi Section -->
+            <section class="card section-produksi">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-box-open"></i> Hasil Produksi</h2>
+                    <p class="subtitle">Target barang jadi yang dihasilkan dari biaya di atas</p>
+                </div>
+                <div class="card-content">
+                    <div class="input-group">
+                        <label for="jumlah-produksi">Jumlah Produksi (Unit/Pcs)</label>
+                        <input type="number" id="jumlah-produksi" placeholder="Contoh: 100" min="1">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Action Button -->
+            <div class="action-container">
+                <button type="button" class="btn btn-primary btn-large" onclick="hitungHPP()">
+                    <i class="fa-solid fa-check-double"></i> Hitung HPP Sekarang
+                </button>
+            </div>
+
+            <!-- Result Section -->
+            <section id="hasil-container" class="card result-card hidden">
+                <h2>Ringkasan HPP</h2>
+                <div class="result-details">
+                    <div class="result-item">
+                        <span>Total Biaya Tetap</span>
+                        <span id="res-tetap">Rp 0</span>
+                    </div>
+                    <div class="result-item">
+                        <span>Total Biaya Variabel</span>
+                        <span id="res-variabel">Rp 0</span>
+                    </div>
+                    <div class="result-item total-cost">
+                        <span>Total Biaya Produksi</span>
+                        <span id="res-total">Rp 0</span>
+                    </div>
+                    <div class="result-item">
+                        <span>Jumlah Barang Dihasilkan</span>
+                        <span id="res-qty">0 Unit</span>
+                    </div>
+                </div>
+                <div class="final-result">
+                    <h3>HPP Per Unit</h3>
+                    <div class="hpp-value" id="res-hpp">Rp 0</div>
+                    <p class="hpp-note">Gunakan nilai ini sebagai dasar penentuan harga jual (tambahkan margin keuntungan).</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
